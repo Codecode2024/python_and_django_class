@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 <!-- <!DOCTYPE html> -->
 <!-- <html lang="en"> -->
 {% comment %}
@@ -264,7 +265,8 @@
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="index.html"> <i class="fas fa-home"></i> Home</a>
+          <!-- fix index -->
+          <a href={% url 'pages:index' %}> <i class="fas fa-home"></i> Home</a>
         </li>
         <li class="breadcrumb-item active">About</li>
       </ol>
@@ -284,7 +286,8 @@
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt,
           pariatur!
         </p>
-        <img src="assets/img/about.jpg" alt="" />
+        <!-- fix about -->
+        <img src={% static 'img/about.jpg' %} alt="" />
         <p class="mt-4">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
           esse officia repudiandae ad saepe ex, amet neque quod accusamus rem
@@ -295,6 +298,7 @@
       </div>
       <div class="col-md-4">
         <div class="card">
+          <!-- fix kyle -->
           <img
             class="card-img-top"
             src="assets/img/doctors/kyle.jpg"
@@ -322,6 +326,7 @@
     aperiam, unde aliquid at similique!
   </h4>
   <hr />
+  <!--fix listings -->
   <a href="listings.html" class="btn btn-secondary text-white btn-lg"
     >View Our Featured Listings</a
   >
@@ -333,6 +338,7 @@
     <h2 class="text-center pb-4">Our Team</h2>
     <div class="row text-center">
       <div class="col-md-4">
+        <!--fix kyle -->
         <img
           src="assets/img/doctors/kyle.jpg"
           alt=""
@@ -349,6 +355,7 @@
       </div>
 
       <div class="col-md-4">
+           <!--fix emma -->
         <img
           src="assets/img/doctors/emma.jpg"
           alt=""
@@ -363,6 +370,7 @@
       </div>
 
       <div class="col-md-4">
+           <!--fix jenny -->
         <img
           src="assets/img/doctors/jenny.jpg"
           alt=""
