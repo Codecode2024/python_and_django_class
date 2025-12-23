@@ -43,7 +43,9 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-APPLICATION_APPS =['pages.apps.PagesConfig']
+APPLICATION_APPS =['pages.apps.PagesConfig',
+                   'listings.apps.ListingsConfig',
+                   'doctors.apps.DoctorsConfig']
 
 INSTALLED_APPS = DJANGO_APPS + APPLICATION_APPS
 

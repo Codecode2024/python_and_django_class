@@ -16,17 +16,18 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <ul class="navbar-nav">
-          <li class="nav-item active mr-3">
+          <li {% if '/' == request.path %} class="nav-item active mr-3" {% else %} class = "nav-item mr-3" {% endif %}>
              <!-- fix index -->
             <a class="nav-link" href={% url 'pages:index' %}>Home</a>
           </li>
-          <li class="nav-item mr-3">
+          <li {% if '/about' == request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3" {% endif %}>
              <!-- fix about -->
             <a class="nav-link" href={% url 'pages:about' %}>About</a>
           </li>
+          <!--fix switch light active -->
           <li class="nav-item mr-3">
              <!-- fix listings -->
-            <a class="nav-link" href="listings.html"
+            <a class="nav-link" href={% url 'listings:index' %}
               >Inpatient medical services</a
             >
           </li>
