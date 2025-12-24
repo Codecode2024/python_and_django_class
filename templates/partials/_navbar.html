@@ -1,7 +1,8 @@
 {% load static %}
 <!-- Navbar -->
-<div class="container">
+{% comment %} <div class="container"> {% endcomment %}
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container">
     <a class="navbar-brand" href={% url 'pages:index' %}>
       <!-- fix logo -->
         <img src={% static "img/logo.png" %} class="logo" alt="" />
@@ -25,7 +26,7 @@
             <a class="nav-link" href={% url 'pages:about' %}>About</a>
           </li>
           <!--fix switch light active -->
-          <li class="nav-item mr-3">
+          <li {% if '/listings/' == request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3" {% endif %}>
              <!-- fix listings -->
             <a class="nav-link" href={% url 'listings:index' %}
               >Inpatient medical services</a
