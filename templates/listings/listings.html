@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 {% block content %}
 <section id="showcase-inner" class="py-5 text-white">
       <div class="container">
@@ -34,22 +35,24 @@
     <section id="listings" class="py-4">
       <div class="container">
         <div class="row">
+          {% if listings %}
+          {% for listing in listings %}
           <!-- Listing 1 -->
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="card listing-preview">
                 <!-- fix clinic-1 -->
               <img
                 class="card-img-top"
-                src="assets/img/clinics/clinic-1.jpg"
+                src="{{ listing.photo_main.url }}"
                 alt=""
               />
               <div class="card-img-overlay">
               </div>
               <div class="card-body">
                 <div class="listing-heading text-center">
-                  <h4 class="text-primary">Harmony Health Clinic</h4>
+                  <h4 class="text-primary">{{ listing.title | title}}</h4>
                   <p>
-                    <i class="fas fa-map-marker text-secondary"></i> Kowloon Bay
+                    <i class="fas fa-map-marker text-secondary"></i> {{ listing.district | title }}
                   </p>
                 </div>
                 <hr />
@@ -63,7 +66,7 @@
                 </div>
                 <div class="row py-2 text-secondary">
                   <div class="col-6">
-                    <i class="fas fa-bed"></i> Bedrooms
+                    <i class="fas fa-bed"></i> Bedrooms: {{ listing.rooms }}
                   </div>
                   <div class="col-6">
                     <i class="fas fa-bath"></i> Bathrooms
@@ -71,24 +74,30 @@
                 </div>
                 <hr />
                 <div class="row py-2 text-secondary">
-                  <div class="col-12"><i class="fas fa-user"></i> Ms. Ma</div>
+                  <div class="col-12"><i class="fas fa-user"></i> Doctor: {{ listing.doctor.name }}</div>
                 </div>
                 <div class="row text-secondary pb-2">
                   <div class="col-12">
-                    <i class="fas fa-clock"></i> Reservation required
+                    <i class="fas fa-clock"></i> {{ listing.list_date | timesince }}
                   </div>
                 </div>
                 <hr />
                 <!-- fix listing -->
-                <a href="listing.html" class="btn btn-primary btn-block"
+                <a href="{% url 'listings:listing' listing.id %}" class="btn btn-primary btn-block"
                   >More Info</a
                 >
               </div>
             </div>
           </div>
+          {%  endfor %}
+          {%  else %}
+          <div class="col-md-12">
+            <p>No listings available at the moment. Please check back later.</p>
+          </div>
+          {% endif %}
 
           <!-- Listing 2 -->
-          <div class="col-md-6 col-lg-4 mb-4">
+          {% comment %} <div class="col-md-6 col-lg-4 mb-4">
             <div class="card listing-preview">
                 <!-- fix clinic-2 -->
               <img
@@ -141,10 +150,10 @@
                 >
               </div>
             </div>
-          </div>
+          </div> {% endcomment %}
 
           <!-- Listing 3 -->
-          <div class="col-md-6 col-lg-4 mb-4">
+          {% comment %} <div class="col-md-6 col-lg-4 mb-4">
             <div class="card listing-preview">
                 <!-- fix clinic-3 -->
               <img
@@ -195,10 +204,10 @@
                 >
               </div>
             </div>
-          </div>
+          </div> {% endcomment %}
 
           <!-- Listing 4 -->
-          <div class="col-md-6 col-lg-4 mb-4">
+          {% comment %} <div class="col-md-6 col-lg-4 mb-4">
             <div class="card listing-preview">
                 <!-- fix clinic-4 -->
               <img
@@ -248,10 +257,10 @@
                 >
               </div>
             </div>
-          </div>
+          </div> {% endcomment %}
 
           <!-- Listing 5 -->
-          <div class="col-md-6 col-lg-4 mb-4">
+          {% comment %} <div class="col-md-6 col-lg-4 mb-4">
             <div class="card listing-preview">
                 <!-- fix clinic-5 -->
               <img
@@ -301,10 +310,10 @@
                 >
               </div>
             </div>
-          </div>
+          </div> {% endcomment %}
 
           <!-- Listing 6 -->
-          <div class="col-md-6 col-lg-4 mb-4">
+          {% comment %} <div class="col-md-6 col-lg-4 mb-4">
             <div class="card listing-preview">
                 <!-- fix clinic-6 -->
               <img
@@ -354,28 +363,56 @@
                 >
               </div>
             </div>
-          </div>
+          </div> {% endcomment %}
         </div>
 
         <div class="row">
           <div class="col-md-12">
+            {% if listings.has_other_pages %}
             <ul class="pagination">
+
+              {% if listings.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ listings.previous_page_number }}">&laquo;</a>
+              </li>
+              {% else %}
               <li class="page-item disabled">
                 <a class="page-link" href="#">&laquo;</a>
               </li>
+              {% endif %}
+
+              <!-- for loop page number -->
+              {% for i in listings.paginator.page_range %}
+              {% if listings.number == i %}
               <li class="page-item active">
-                <a class="page-link" href="#">1</a>
+                <a class="page-link">{{ i }}</a>
               </li>
+              {% else %}
               <li class="page-item">
+                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+              </li>
+              {% endif %}
+              {% endfor %}
+
+              {% comment %} <li class="page-item">
                 <a class="page-link" href="#">2</a>
               </li>
               <li class="page-item">
                 <a class="page-link" href="#">3</a>
+              </li> {% endcomment %}
+
+              {% if listings.has_next %}
+               <li class="page-item">
+                <a class="page-link" href="?page={{ listings.next_page_number }}">&raquo;</a>
               </li>
-              <li class="page-item">
+              {% else %}
+              <li class="page-item disabled">
                 <a class="page-link" href="#">&raquo;</a>
               </li>
+              {% endif %}
+
             </ul>
+            {% endif %}
           </div>
         </div>
       </div>
