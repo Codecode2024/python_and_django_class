@@ -114,7 +114,7 @@
         </p>
         <div class="search">
           <!-- fix search -->
-          <form action="search.html">
+          <form action="{% url 'listings:search' %}" method="GET">
             <!-- Form Row 1 -->
             <div class="form-row">
               <div class="col-md-12 mb-3">
@@ -160,8 +160,8 @@
                 --></select>
               </div>
               <div class="col-md-4 mb-3">
-                <label class="sr-only">Bedrooms</label>
-                <select name="bedrooms" class="form-control">
+                <label class="sr-only">Rooms</label>
+                <select name="rooms" class="form-control">
                   <option selected="true" disabled="disabled">
                     Rooms (All)
                   </option>
@@ -182,9 +182,9 @@
                 </select>
               </div>
               <div class="col-md-4 mb-3">
-                <select name="price" class="form-control" id="type">
+                <select name="room_type" class="form-control" id="type">
                   <option selected="true" disabled="disabled">
-                    Room Types (All)
+                    Room types (All)
                   </option>
                   {% for key,value in room_choices.items %}
                   <option value="{{ key }}">{{ value }}</option>
