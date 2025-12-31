@@ -135,7 +135,11 @@
                   <option selected="true" disabled="disabled">
                     District (All)
                   </option>
-                  <option value="IL">Islands</option>
+
+                  {% for key,value in district_choices.items %}
+                  <option value="{{ key }}">{{ value }}</option>
+                  {% endfor %}
+                  <!-- select option 
                   <option value="KT">Kwai Tsing</option>
                   <option value="NR">North</option>
                   <option value="SK">Sai Kung</option>
@@ -153,15 +157,17 @@
                   <option value="ER">Eastern</option>
                   <option value="SR">Southern</option>
                   <option value="WC">Wan Chai</option>
-                </select>
+                --></select>
               </div>
               <div class="col-md-4 mb-3">
                 <label class="sr-only">Bedrooms</label>
                 <select name="bedrooms" class="form-control">
                   <option selected="true" disabled="disabled">
-                    Night (All)
+                    Rooms (All)
                   </option>
-                  <option value="1">1</option>
+                  {% for key,value in rooms_choices.items %}
+                  <option value="{{ key }}">{{ value }}</option>
+                  <!-- select option
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
@@ -171,16 +177,22 @@
                   <option value="8">8</option>
                   <option value="9">9</option>
                   <option value="10">10</option>
+                  -->
+                  {% endfor %}
                 </select>
               </div>
               <div class="col-md-4 mb-3">
                 <select name="price" class="form-control" id="type">
                   <option selected="true" disabled="disabled">
-                    Bedrooms (All)
+                    Room Types (All)
                   </option>
-                  <option value="1">Private Rooms</option>
+                  {% for key,value in room_choices.items %}
+                  <option value="{{ key }}">{{ value }}</option>
+                  <!-- select option
                   <option value="2">Semi-Private Rooms</option>
                   <option value="3">Standard (Multi-bed) Rooms</option>
+                -->
+                  {% endfor %}
                 </select>
               </div>
             </div>

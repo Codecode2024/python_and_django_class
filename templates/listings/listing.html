@@ -30,7 +30,7 @@
         <li class="breadcrumb-item">
           <a href="{% url 'listings:index' %}">Listings</a>
         </li>
-        <li class="breadcrumb-item active">L{{ listing.title | title }}</li>
+        <li class="breadcrumb-item active">{{ listing.title | title }}</li>
       </ol>
     </nav>
   </div>

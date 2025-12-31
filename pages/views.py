@@ -1,21 +1,23 @@
 from django.shortcuts import render
-#from django.http import HttpResponse
 from listings.models import Listing
+from doctors.models import Doctor
+from listings.choices import district_choices, room_choices, rooms_choices
 
 # Create your views here.
 def index(request):
-    #print(request, request.path)
-    # content = [{
-    #     'anything': 'something speical',
-    #     'number' : '1234'
-    # }]
-    listings = Listing.objects.all()
+    listings = Listing.objects.order_by('-list_date').filter(is_published=True)[:3]
     content = {
-        "listings" : listings
+        "listings" : listings,
+        "district_choices" : district_choices,
+        "room_choices" : room_choices,
+        "rooms_choices" : rooms_choices
     }
     return render(request,'pages/index.html', content)
 
 def about(request):
-    #return HttpResponse('<h1>About</h1>')
-    #print(request, request.path)
-    return render(request,'pages/about.html')
+    doctors = Doctor.objects.order_by("-hire_date")[:3]
+    mvp_doctors = Doctor.objects.all().filter(is_mvp=True)
+    context = {"doctors": doctors, 'mvp_doctors': mvp_doctors}
+
+    return render(request,'pages/about.html' , context)
+
