@@ -14,6 +14,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 import os
+from django.contrib.messages import constants as messages
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -47,7 +48,8 @@ DJANGO_APPS = [
 
 APPLICATION_APPS =['pages.apps.PagesConfig',
                    'listings.apps.ListingsConfig',
-                   'doctors.apps.DoctorsConfig']
+                   'doctors.apps.DoctorsConfig',
+                   'accounts.apps.AccountsConfig',]
 
 THIRD_PARTY_APPS = ["debug_toolbar",]
 
@@ -152,3 +154,8 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+    messages.SUCCESS: 'success',
+}

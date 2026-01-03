@@ -35,23 +35,20 @@
         </ul>
 
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item mr-3">
 
-             <!-- fix register-->
-            <a class="nav-link" href="register.html">
-              <i class="fas fa-user-plus"></i> Register</a
-            >
+          <li {% if 'register' in request.path %}  class="nav-item mr-3 active" {% else %} class="nav-item mr-3" {% endif %}>
+            <!-- fix register-->
+            <a class="nav-link" href="{% url 'accounts:register' %}">
+              <i class="fas fa-user-plus"></i> Register</a>
           </li>
-          <li class="nav-item mr-3">
 
-             <!-- fix login-->
-            <a class="nav-link" href="login.html">
-              <i class="fas fa-sign-in-alt"></i>
-
-              Login</a
-            >
+          <li {% if 'login' in request.path %}  class="nav-item mr-3 active" {% else %} class="nav-item mr-3" {% endif %}>
+            <!-- fix login-->
+            <a class="nav-link" href="{% url 'accounts:login' %}">
+              <i class="fas fa-sign-in-alt"></i> Login</a>
           </li>
         </ul>
+
       </div>
     </div>
   </nav>

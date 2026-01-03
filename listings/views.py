@@ -28,26 +28,26 @@ def search(request):
         keywords = request.GET['keywords']
         if keywords:
             queryset_list = queryset_list.filter(Q(description__icontains=keywords) | Q(title__icontains=keywords) | Q(doctor__name__icontains=keywords))
-        if 'district' in request.GET:
-            district = request.GET['district']
-            if district:
-                queryset_list = queryset_list.filter(district__iexact=district)  
-        if 'rooms' in request.GET:
-            rooms = request.GET['rooms']
-            if rooms:
-                queryset_list = queryset_list.filter(rooms__gte=rooms) 
-        if 'room_type' in request.GET:
-            room_type = request.GET['room_type']
-            if room_type:
-                queryset_list = queryset_list.filter(room_type__iexact=room_type) 
-        paginator = Paginator(queryset_list,3)
-        page = request.GET.get('page')
-        paged_listings = paginator.get_page(page)
-        context = {
-            'listings' : paged_listings,
-            'district_choices' : district_choices,
-            'rooms_choices' : rooms_choices,
-            'room_choices' : room_choices,
-            'values' : request.GET
-        }
-        return render(request, 'listings/search.html', context)
+    if 'district' in request.GET:
+        district = request.GET['district']
+        if district:
+            queryset_list = queryset_list.filter(district__iexact=district)  
+    if 'rooms' in request.GET:
+        rooms = request.GET['rooms']
+        if rooms:
+            queryset_list = queryset_list.filter(rooms__gte=rooms) 
+    if 'room_type' in request.GET:
+        room_type = request.GET['room_type']
+        if room_type:
+            queryset_list = queryset_list.filter(room_type__iexact=room_type) 
+    paginator = Paginator(queryset_list,3)
+    page = request.GET.get('page')
+    paged_listings = paginator.get_page(page)
+    context = {
+        'listings' : paged_listings,
+        'district_choices' : district_choices,
+        'rooms_choices' : rooms_choices,
+        'room_choices' : room_choices,
+        'values' : request.GET
+    }
+    return render(request, 'listings/search.html', context)
