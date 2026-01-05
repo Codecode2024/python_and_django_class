@@ -5,7 +5,7 @@
 }
 .lb-dataContainer:after,
 .lb-outerContainer:after {
-  content: '';
+  content: "";
   clear: both;
 }
 html.lb-disable-scrolling {

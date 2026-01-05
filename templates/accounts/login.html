@@ -5,13 +5,17 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 mx-auto">
+
+        {% include 'partials/_alert.html' %}
+
         <div class="card">
           <div class="card-header bg-primary text-white">
             <h4><i class="fas fa-sign-in-alt"></i> Login</h4>
           </div>
           <div class="card-body">
             <!-- fix index -->
-            <form action="{% url 'pages:index' %}">
+            <form action="{% url 'accounts:login' %}" method="POST">
+              {% csrf_token %}
               <div class="form-group">
                 <label for="username">Username</label>
                 <input
@@ -19,7 +23,6 @@
                   type="text"
                   name="username"
                   class="form-control"
-                  required
                 />
               </div>
 
@@ -30,7 +33,6 @@
                   type="password"
                   name="password"
                   class="form-control"
-                  required
                 />
               </div>
 
