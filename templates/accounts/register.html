@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+<!-- tab title -->
+{% block title %} | Rgister{% endblock %}
 <!-- block content -->
 {% block content %}
 <section id="register" class="bg-light py-5">
   <div class="container">
     <div class="row">
       <div class="col-md-6 mx-auto">
-
         {% include 'partials/_alert.html' %}
 
         <div class="card">
@@ -15,11 +16,11 @@
           <div class="card-body">
             <!-- fix index -->
             <form action="{% url 'accounts:register' %}" method="POST">
-                {% csrf_token %}
+              {% csrf_token %}
               <div class="form-group">
                 <label for="first_name">First Name</label>
                 <input
-                  id="first_name" 
+                  id="first_name"
                   type="text"
                   name="first_name"
                   class="form-control"

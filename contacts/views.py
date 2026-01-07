@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Contact
 from django.contrib import messages
 from .forms import ContactForm
-
+from django.core.mail import send_mail
 # Create your views here.
 
 def contact(request):
@@ -15,6 +15,7 @@ def contact(request):
         phone = request.POST['phone']
         message = request.POST['message']
         user_id = request.POST['user_id']
+        doctor_email = request.POST['doctor_email']
         
         # 檢查用戶是否已認證並避免重複提交
         if request.user.is_authenticated:
@@ -35,10 +36,19 @@ def contact(request):
             email=email, 
             phone=phone, 
             message=message, 
-            user_id=user_id
+            user_id=user_id,
         )
         contact.save()
         
+        # 發送電子郵件
+        send_mail(
+            'Clinic Inquiry',    # 電子郵件標題
+            'There has been an inquiry for ' + listing + '. Sign into the admin panel for more info', # 電子郵件內容
+            'jackywan2026@gmail.com', # self email  From email address
+            [doctor_email], # To email address
+            fail_silently=False,     # 防止發送失敗
+        )   
+
         # 顯示成功消息
         messages.success(request, 'Your request has been submitted, a clinic representative will get back to you soon.')
         

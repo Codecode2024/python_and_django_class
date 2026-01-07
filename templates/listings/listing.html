@@ -3,6 +3,8 @@
 {% load static %}
 <!-- load humanize -->
 {% load humanize %}
+<!-- tab title -->
+{% block title %} | {{ listing.title | title }}{% endblock %}
 <!-- block content -->
 {% block content %}
 
@@ -156,6 +158,38 @@
           </div>
         </div>
 
+        <!-- Profesional -->
+        <div class="row mb-5 text-secondary">
+          <h4 class="mr-3 text-secondary">Professions:</h4>
+          {% if listing.professions.all %}
+          <ul>
+            {% for profession in listing.professions.all %}
+            <li class="mr-3">
+              <h4>{{profession.name}}</h4>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <h4 class="text-secondary">No Professions Listed.</h4>
+          {% endif %}
+        </div>
+
+        <!-- Services -->
+        <div class="row mb-5 text-secondary">
+          <h4 class="mr-3 text-secondary">Services:</h4>
+          {% if listing.services.all %}
+          <!-- for loop -->
+          {% for service_tag in listing.services.all %}
+          <ul>
+            <li class="mr-3"><h4>{{ service_tag.name | title }}</h4></li>
+          </ul>
+          {% endfor %}
+          <!-- else -->
+          {% else %}
+          <h4>No services</h4>
+          {% endif %}
+        </div>
+
         <!-- Description -->
         <div class="row mb-5">
           <div class="col-md-12">{{ listing.description | linebreaks }}</div>
@@ -201,6 +235,11 @@
 
           <!-- input -->
           <input type="hidden" name="listing_id" value="{{listing.id}}" />
+          <input
+            type="hidden"
+            name="doctor_email"
+            value="{{listing.doctor.email}}"
+          />
           {% if user.is_authenticated %}
           <input type="hidden" name="user_id" value="{{user.id}}" />
           {% else %}
